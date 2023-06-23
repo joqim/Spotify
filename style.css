@@ -1,0 +1,195 @@
+:root {
+  --main-color-rgb: 29, 185, 84;
+  --transition-speed: 150ms;
+  --unit: 4px;
+}
+
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  margin: auto;
+  padding: var(--unit);
+  padding-left: calc(var(--unit) * 5);
+
+  border-radius: 99999px;
+  background: rgba(var(--main-color-rgb), 0.05);
+  backdrop-filter: blur(5px);
+  transition: background var(--transition-speed) ease;
+}
+
+.btn:hover {
+  background: rgba(var(--main-color-rgb), 0.25);
+}
+
+.btn__icon {
+  display: inline-flex;
+  padding: calc(var(--unit) * 2) calc(var(--unit) * 3);
+  margin-left: calc(var(--unit) * 3);
+  border-radius: 99999px;
+
+  transition: all var(--transition-speed) ease;
+  background: radial-gradient(
+      100px 100px at var(--icon-bg-x) calc(var(--unit) * 5),
+      rgba(var(--main-color-rgb), 0.2) 0%,
+      rgba(var(--main-color-rgb), 0) 100%
+    ),
+    rgba(var(--main-color-rgb), 0.1) 100%;
+
+  animation: -0.64s icon-bg-x 6s linear infinite;
+}
+
+.btn:hover .btn__icon {
+  background: rgba(var(--main-color-rgb), 0.5) 100%;
+}
+
+.btn__border {
+  position: absolute;
+  inset: 0;
+  border-radius: 99999px;
+  pointer-events: none;
+
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  border: 1px solid rgba(var(--main-color-rgb), 0.2);
+
+  background: conic-gradient(
+      from calc(var(--border-rotation) - 80deg) at var(--border-x) 22px,
+      rgba(var(--main-color-rgb), 0) 0%,
+      rgba(var(--main-color-rgb), 0.8) 30%,
+      rgba(177, 177, 177, 0) 45%
+    )
+    border-box;
+
+  animation: -0.64s border-rotation 6s linear infinite,
+    -0.64s border-x 6s linear infinite;
+}
+
+/**
+ * Thanks, @shuding_
+ * https://twitter.com/shuding_/status/1655999450672660482
+ */
+@property --border-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --icon-bg-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -340px;
+}
+
+@property --border-rotation {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root {
+  --btn-size: 230px;
+  --offset: calc(var(--btn-size) / 10);
+}
+
+@keyframes border-x {
+  0% {
+    --border-x: var(--offset);
+  }
+  32.82275711% {
+    --border-x: var(--btn-size);
+  }
+  50% {
+    --border-x: var(--btn-size);
+  }
+  82.82275711% {
+    --border-x: var(--offset);
+  }
+  100% {
+    --border-x: var(--offset);
+  }
+}
+
+@keyframes border-rotation {
+  0% {
+    --border-rotation: 0deg;
+  }
+  32.82275711% {
+    --border-rotation: 0deg;
+  }
+  50% {
+    --border-rotation: 180deg;
+  }
+  82.82275711% {
+    --border-rotation: 180deg;
+  }
+  100% {
+    --border-rotation: 360deg;
+  }
+}
+
+@keyframes icon-bg-x {
+  0% {
+    --icon-bg-x: calc(var(--btn-size) * -1);
+  }
+  32.82275711% {
+    --icon-bg-x: 0px;
+  }
+  50% {
+    --icon-bg-x: 0px;
+  }
+  82.82275711% {
+    --icon-bg-x: calc(var(--btn-size) * -1);
+  }
+  100% {
+    --icon-bg-x: calc(var(--btn-size) * -1);
+  }
+}
+
+.body_background {
+  position: absolute;
+  inset: 0px;
+  background: #000;
+
+  background: linear-gradient(#000, transparent 50%),
+    linear-gradient(-45deg, rgba(var(--main-color-rgb), 0.5), transparent),
+    linear-gradient(45deg, rgba(255, 255, 0, 0.5), transparent),
+    url(https://images.unsplash.com/photo-1587731556938-38755b4803a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2078&q=80)
+      0px -10px / auto 150%;
+
+  -webkit-mask-image: radial-gradient(
+      at 50% 50%,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      35deg,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0) 80%
+    );
+
+  background-blend-mode: multiply;
+  animation: 40s body_background linear infinite;
+}
+
+.body_background:after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+
+  background: linear-gradient(#000, transparent 50%),
+    linear-gradient(-45deg, rgba(var(--main-color-rgb), 0.7), transparent),
+    linear-gradient(45deg, rgba(255, 255, 0, 0.1), transparent);
+}
+
+@keyframes body_background {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
